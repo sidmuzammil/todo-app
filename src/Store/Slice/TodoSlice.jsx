@@ -1,5 +1,9 @@
+//This component creates a Redux slice for managing a to-do list, including actions and reducers for adding, deleting, and updating items, while also synchronizing data with local storage.
+
 import { createSlice } from "@reduxjs/toolkit";
 
+
+//This function retrieves to-do items from local storage. If items exist, it parses and returns them; otherwise, it initializes an empty array in local storage and returns an empty array.
 const getItems = () => {
   const localTodos = localStorage.getItem("todo");
 
@@ -18,6 +22,8 @@ const TodoSlice = createSlice({
   name: "Todo",
   initialState: initialValue,
   reducers: {
+
+    // This reducer adds a new to-do item to the Redux state's `todoList` array and updates the corresponding data in local storage to maintain synchronization.
     addTodo: (state, action) => {
       state.todoList.push(action.payload);
       const todoList = localStorage.getItem("todo");
@@ -38,6 +44,8 @@ const TodoSlice = createSlice({
         );
       }
     },
+
+    //This reducer deletes a to-do item from the Redux state's `todoList` array and updates the corresponding data in local storage to keep the data in sync.
     deleteTodo: (state, action) => {
       const todoLocal = localStorage.getItem("todo");
       if (todoLocal) {
@@ -51,6 +59,8 @@ const TodoSlice = createSlice({
         state.todoList = todoArr;
       }
     },
+
+    //This reducer updates a to-do item in the Redux state's `todoList` array based on the provided payload (id, status, title, priority). It also updates the corresponding data in local storage to maintain consistency between the Redux state and local storage.
     updateTodo: (state, action) => {
       const todoList = localStorage.getItem("todo");
       if (todoList) {

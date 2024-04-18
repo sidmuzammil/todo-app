@@ -1,5 +1,5 @@
 import { AiOutlinePlus } from "react-icons/ai";
-import { motion as m } from "framer-motion";
+import { motion as m } from "framer-motion"; // framermotion for animation
 
 const SmallAddBtn = ({ setModalOpen }) => {
   return (
@@ -12,6 +12,7 @@ const SmallAddBtn = ({ setModalOpen }) => {
       }
       onClick={() => setModalOpen(true)}
     >
+      {/* icon imported from rect-icons */}
       <AiOutlinePlus className={"text-xl "} />
     </m.div>
   );

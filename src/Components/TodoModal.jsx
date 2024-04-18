@@ -1,12 +1,12 @@
+// The `TodoModal` is a form-based modal for adding tasks to a to-do list, utilizing state hooks for input management and submission.
+
 import React, { useState } from "react";
 import { AiFillCloseSquare } from "react-icons/ai";
-
 import { motion as m } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { addTodo } from "../Store/Slice/TodoSlice";
 import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-hot-toast";
-
 import { format } from "date-fns";
 
 const TodoModal = ({ modalOpen, setModalOpen }) => {
@@ -16,6 +16,8 @@ const TodoModal = ({ modalOpen, setModalOpen }) => {
 
   const dispatch = useDispatch();
 
+
+  //The exitModal function closes the modal (setModalOpen(false)) and resets the title, status, and priority to default values for a new task entry.
   const exitModal = () => {
     setModalOpen(false);
     setTitle("");
@@ -23,6 +25,8 @@ const TodoModal = ({ modalOpen, setModalOpen }) => {
     setPriority("high");
   };
 
+
+  //this handleSubmit function validating input, dispatching an action to add a new task to the Redux store, closing the modal, and displaying a success toast notification.
   const handleSubmit = (e) => {
     e.preventDefault();
 

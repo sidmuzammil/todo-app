@@ -1,6 +1,7 @@
+//The Component is using for updating tasks in a to-do list
+
 import React, { useEffect, useState } from "react";
 import { AiFillCloseSquare } from "react-icons/ai";
-
 import { motion as m } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { updateTodo } from "../Store/Slice/TodoSlice";
@@ -13,12 +14,15 @@ const UpdateModal = ({ modalOpen, setModalOpen, todo }) => {
 
   const dispatch = useDispatch();
 
+  //This useEffect updates the modal's input fields with the existing task's data (todo.task, todo.status, todo.priority) when the modal opens (modalOpen changes).
   useEffect(() => {
     setTitle(todo.task);
     setStatus(todo.status);
     setPriority(todo.priority);
   }, [todo, modalOpen]);
 
+
+//The exitModal function closes the modal (setModalOpen(false)) and resets the title, status, and priority to default values for a new task entry.
   const exitModal = () => {
     setModalOpen(false);
     setTitle("");
@@ -26,6 +30,8 @@ const UpdateModal = ({ modalOpen, setModalOpen, todo }) => {
     setPriority("high");
   };
 
+
+  //`handleSubmit` prevents default form submission, dispatches an update if task data changes, shows an error toast for no changes, closes the modal, and displays a success toast for an update.
   const handleSubmit = (e) => {
     e.preventDefault();
 

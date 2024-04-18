@@ -12,13 +12,14 @@ const style = {
 };
 
 const Task = ({ task }) => {
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false); //this state control the todo box popup and close
+  const [checked, setChecked] = useState(false); //The checked state manages task completion status for rendering and interaction logic.
+  const [title, setTitle] = useState("");//This line of code initializes a state variable named title with an empty string and a function setTitle to update its value.
 
-  const [checked, setChecked] = useState(false);
-  const [title, setTitle] = useState("");
+  const dispatch = useDispatch(); //dispatch is used to send actions to the Redux store, enabling you to manage and update the application state in a predictable and centralized manner.
 
-  const dispatch = useDispatch();
-
+  
+  // This useEffect updates the task title and checks/unchecks the task based on its completion status, triggered by changes in task.status or title.
   useEffect(() => {
     setTitle(task.task);
     if (task.status === "complete") {
@@ -28,6 +29,7 @@ const Task = ({ task }) => {
     }
   }, [task.status, title]);
 
+  //This handleCheck function toggles the task's completion status (setChecked(!checked)), updates the task in the Redux store with the new status, and displays a toast notification based on the task's status change.
   const handleCheck = () => {
     setChecked(!checked);
     dispatch(
@@ -44,6 +46,7 @@ const Task = ({ task }) => {
     }
   };
 
+  //This priorityBorder function takes a data parameter and returns a border color class based on the value of data. If data is "high," it returns "border-red-500"; if it's "medium," it returns "border-orange-400"; otherwise, it returns "border-green-400".
   const priorityBorder = (data) => {
     if (data == "high") {
       return "border-red-500";
@@ -80,7 +83,7 @@ const Task = ({ task }) => {
           </div>
           <h5
             className={`text-2xl mb-12 capitalize ${
-              task.status === "complete" ? "line-through" : ""
+              task.status === "complete" ? "line-through" : "" 
             }`}
           >
             {task.task}
@@ -92,6 +95,7 @@ const Task = ({ task }) => {
             {task.priority}
           </span>
 
+          {/* This block of code creates a clickable edit icon <MdModeEditOutline/> that sets the modalOpen state to true when clicked, opening an edit modal for the task. */}
           <div className="flex flex-row items-center gap-2">
             <div
               className={style.ico}
@@ -101,6 +105,8 @@ const Task = ({ task }) => {
             >
               <MdModeEditOutline />
             </div>
+
+            {/* This block of code creates a clickable delete icon MdDelete  that triggers the deletion of a todo item when clicked, showing a "Removed" error toast. */}
             <div
               className={style.ico}
               onClick={() => {
@@ -110,6 +116,8 @@ const Task = ({ task }) => {
             >
               <MdDelete />
             </div>
+
+            {/* This code creates a clickable circle icon that changes appearance based on the task's completion status and triggers the handleCheck function when clicked */}
             <div
               className={`ico w-[40px] aspect-square grid place-content-center ${
                 task.status === "complete" ? "bg-white" : "bg-indigo-700"
@@ -117,7 +125,7 @@ const Task = ({ task }) => {
               onClick={handleCheck}
             >
               {task.status === "incomplete" ? (
-                <BsCheckCircle />
+                <BsCheckCircle/>
               ) : (
                 <BsCheckCircleFill className="text-indigo-600" />
               )}
