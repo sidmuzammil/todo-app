@@ -20,13 +20,13 @@ To run the To-Do List Application locally, follow these steps:
 1. Clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/YourGitHubUsername/YourRepositoryName.git
+git clone https://github.com/sidmuzammil/todo-app.git
 ```
 
 2. Navigate to the project directory:
 
 ```bash
-cd YourRepositoryName
+cd RepositoryName
 ```
 
 3. Install the required dependencies:
